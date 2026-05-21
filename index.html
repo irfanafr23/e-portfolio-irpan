@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Portofolio PPG | Irpan Afriansya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --biru: #0a3d6b;
+  --biru-muda: #1565a8;
+  --biru-terang: #1e88e5;
+  --emas: #c9a030;
+  --emas-muda: #f5d060;
+  --putih: #f5f8ff;
+  --abu: #eaf0f8;
+  --teks: #0d1b2a;
+  --teks-abu: #4a6080;
+  --border: rgba(10,61,107,0.10);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--putih); color:var(--teks); overflow-x:hidden; }
+
+/* ===== NAVBAR ===== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:rgba(5,20,45,0.97);
+  backdrop-filter:blur(16px);
+  height:68px;
+  display:flex; align-items:center;
+  padding:0 3%;
+  box-shadow:0 2px 20px rgba(10,61,107,0.3);
+}
+.nav-brand {
+  display:flex; align-items:center; gap:12px;
+  text-decoration:none; flex-shrink:0; margin-right:auto;
+}
+.nav-logo {
+  width:44px; height:44px; border-radius:50%;
+  background:white; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; flex-shrink:0; border:2px solid var(--emas);
+}
+.nav-logo img { width:38px; height:38px; object-fit:contain; }
+.nav-logo-fallback { font-size:0.85rem; font-weight:900; color:var(--biru); font-family:serif; }
+.nav-logo-text { font-size:1rem; font-weight:700; color:var(--emas-muda); font-family:'Playfair Display',serif; line-height:1.1; }
+.nav-logo-sub { font-size:0.62rem; color:rgba(255,255,255,0.5); letter-spacing:0.04em; }
+
+.nav-links { display:flex; align-items:center; gap:2px; list-style:none; }
+.nav-links > li { position:relative; }
+.nav-links > li > a,
+.nav-links > li > button {
+  display:flex; align-items:center; gap:5px;
+  text-decoration:none; color:rgba(255,255,255,0.78);
+  font-size:0.82rem; font-weight:500; font-family:'DM Sans',sans-serif;
+  padding:9px 14px; border-radius:7px; cursor:pointer;
+  background:none; border:none; white-space:nowrap;
+  transition:all 0.18s;
+}
+.nav-links > li > a:hover,
+.nav-links > li > button:hover { color:white; background:rgba(255,255,255,0.1); }
+.nav-links > li > a.active { color:var(--emas-muda); }
+.nav-caret { font-size:0.58rem; transition:transform 0.2s; display:inline-block; }
+.nav-links > li:hover > button .nav-caret { transform:rotate(180deg); }
+
+.dropdown {
+  display:none; position:absolute; top:calc(100% + 10px); right:0;
+  background:white; border:1px solid var(--border); border-radius:12px;
+  min-width:210px; box-shadow:0 16px 48px rgba(10,61,107,0.18);
+  overflow:hidden; z-index:300;
+}
+.nav-links > li:hover .dropdown { display:block; }
+.dropdown-header {
+  padding:9px 14px 7px;
+  font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--biru-muda);
+  border-bottom:1px solid var(--border); background:var(--abu);
+}
+.dropdown a {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 14px; text-decoration:none;
+  color:var(--teks); font-size:0.83rem; transition:background 0.15s;
+}
+.dropdown a:hover { background:var(--abu); color:var(--biru); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height:100vh;
+  background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 55%,#0d5299 100%);
+  display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; padding:90px 6% 4rem; gap:4rem;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-120px; right:-120px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle,rgba(201,160,48,0.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(201,160,48,0.14); border:1px solid rgba(201,160,48,0.4);
+  color:var(--emas-muda); font-size:0.77rem; font-weight:600;
+  letter-spacing:0.07em; text-transform:uppercase;
+  padding:7px 16px; border-radius:100px; margin-bottom:1.5rem;
+}
+.hero-badge::before { content:''; width:6px; height:6px; background:var(--emas-muda); border-radius:50%; }
+.hero-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4.5vw,3.6rem); font-weight:900;
+  line-height:1.1; letter-spacing:-0.02em; color:white; margin-bottom:1.5rem;
+}
+.hero-title .hl { color:var(--emas-muda); position:relative; display:inline-block; }
+.hero-title .hl::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--emas); }
+.hero-desc { font-size:.98rem; color:rgba(255,255,255,0.7); line-height:1.8; max-width:480px; margin-bottom:2.5rem; }
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--emas); color:#07182e;
+  text-decoration:none; padding:13px 26px; border-radius:8px;
+  font-weight:700; font-size:0.88rem; border:none; cursor:pointer; transition:all 0.2s;
+}
+.btn-primary:hover { background:var(--emas-muda); transform:translateY(-1px); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:white; text-decoration:none;
+  padding:13px 26px; border-radius:8px; font-weight:600; font-size:0.88rem;
+  border:1.5px solid rgba(255,255,255,0.28); transition:all 0.2s;
+}
+.btn-outline:hover { border-color:rgba(255,255,255,0.65); background:rgba(255,255,255,0.07); }
+.hero-stats { display:flex; gap:2.5rem; margin-top:3rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.11); }
+.stat-num { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--emas-muda); }
+.stat-label { font-size:0.74rem; color:rgba(255,255,255,0.5); margin-top:2px; }
+
+.hero-visual { position:relative; display:flex; justify-content:center; align-items:center; }
+.photo-frame {
+  width:360px; height:440px; border-radius:24px;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.photo-frame img { width:100%; height:100%; object-fit:cover; object-position:top; }
+.photo-overlay {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(to top,rgba(10,61,107,0.95) 0%,transparent 100%);
+  padding:2rem 1.5rem 1.5rem; color:white;
+}
+.photo-name { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; }
+.photo-role { font-size:0.77rem; opacity:0.8; margin-top:2px; }
+.float-card {
+  position:absolute; background:rgba(5,18,42,0.88);
+  backdrop-filter:blur(12px); border:1px solid rgba(201,160,48,0.35);
+  border-radius:12px; padding:12px 16px; animation:float 4s ease-in-out infinite;
+}
+.float-card.left { left:-28px; top:28%; }
+.float-card.right { right:-8px; bottom:22%; animation-delay:1s; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.fc-label { font-size:0.67rem; color:var(--emas-muda); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+.fc-val { font-size:0.9rem; font-weight:700; color:white; margin-top:2px; }
+
+/* ===== SECTIONS ===== */
+section { padding:5rem 6%; }
+.section-tag { font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--emas); margin-bottom:0.6rem; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; line-height:1.2; letter-spacing:-0.02em; margin-bottom:1rem; color:var(--teks); }
+.section-desc { font-size:0.94rem; color:var(--teks-abu); line-height:1.8; max-width:540px; }
+
+.profil-wrap { background:var(--abu); }
+.profil-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-top:3rem; align-items:start; }
+.info-item { display:grid; grid-template-columns:170px 1fr; gap:1rem; padding:.9rem 0; border-bottom:1px solid var(--border); }
+.info-label { font-size:.81rem; color:var(--teks-abu); font-weight:500; }
+.info-value { font-size:.91rem; font-weight:700; color:var(--teks); }
+.riwayat-item { display:flex; gap:1rem; padding:1rem; background:white; border-radius:12px; border:1px solid var(--border); margin-bottom:.85rem; transition:all .2s; }
+.riwayat-item:hover { border-color:var(--biru-muda); }
+.riwayat-icon { width:42px; height:42px; border-radius:10px; background:var(--abu); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.r-nama { font-weight:700; font-size:.87rem; color:var(--teks); }
+.r-tahun { font-size:.77rem; color:var(--biru-muda); font-weight:600; }
+.r-jurusan { font-size:.77rem; color:var(--teks-abu); margin-top:1px; }
+
+.artefak-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:1.2rem; margin-top:3rem; }
+.porto-card { background:white; border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:all .3s; cursor:pointer; }
+.porto-card:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(10,61,107,0.12); border-color:var(--biru-muda); }
+.porto-card-top { background:var(--abu); padding:1.6rem 1.7rem 1.3rem; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:.7rem; }
+.porto-num { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:900; color:rgba(10,61,107,0.09); line-height:1; flex-shrink:0; }
+.porto-icon { width:44px; height:44px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+.porto-body { padding:1.3rem 1.7rem; }
+.porto-title { font-family:'Playfair Display',serif; font-size:1.04rem; font-weight:700; color:var(--teks); margin-bottom:.45rem; }
+.porto-desc { font-size:.83rem; color:var(--teks-abu); line-height:1.7; margin-bottom:1rem; }
+.porto-link { display:inline-flex; align-items:center; gap:5px; color:var(--biru-muda); font-size:.83rem; font-weight:600; text-decoration:none; border-bottom:1.5px solid transparent; transition:border-color .2s; }
+.porto-link:hover { border-color:var(--biru-muda); }
+.c-biru { background:rgba(10,61,107,0.09); }
+.c-emas { background:rgba(201,160,48,0.12); }
+.c-cyan { background:rgba(0,150,180,0.1); }
+.c-merah { background:rgba(180,40,40,0.09); }
+.c-ungu { background:rgba(100,40,180,0.09); }
+.c-tosca { background:rgba(0,140,120,0.09); }
+
+.doc-wrap { background:var(--abu); }
+.doc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(198px,1fr)); gap:.9rem; margin-top:3rem; }
+.doc-item { background:white; border-radius:12px; border:1px solid var(--border); padding:2.1rem .9rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:.6rem; transition:all .2s; }
+.doc-item:hover { border-color:var(--emas); box-shadow:0 8px 24px rgba(10,61,107,0.08); }
+.doc-emoji { font-size:2.1rem; }
+.doc-caption { font-size:.84rem; font-weight:700; color:var(--teks); }
+.doc-sub { font-size:.74rem; color:var(--teks-abu); }
+
+footer { background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%); color:white; padding:4rem 6%; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,0.1); }
+.footer-brand { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:.7rem; }
+.footer-brand span { color:var(--emas-muda); }
+.footer-desc { font-size:.83rem; opacity:.62; line-height:1.8; max-width:280px; }
+.footer-col-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.42; margin-bottom:.85rem; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+.footer-links a { color:white; text-decoration:none; font-size:.85rem; opacity:.7; transition:opacity .2s; }
+.footer-links a:hover { opacity:1; }
+.footer-bottom { padding-top:1.75rem; display:flex; justify-content:space-between; font-size:.77rem; opacity:.47; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+.hero-content > * { animation:fadeUp .6s ease both; }
+.hero-content > *:nth-child(1){animation-delay:.1s;}
+.hero-content > *:nth-child(2){animation-delay:.2s;}
+.hero-content > *:nth-child(3){animation-delay:.3s;}
+.hero-content > *:nth-child(4){animation-delay:.4s;}
+.hero-content > *:nth-child(5){animation-delay:.5s;}
+.hero-visual{animation:fadeUp .8s ease .25s both;}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:100px;text-align:center;}
+  .hero-visual{display:none;}
+  .profil-grid{grid-template-columns:1fr;gap:2rem;}
+  .footer-grid{grid-template-columns:1fr;gap:2rem;}
+  .hero-stats{justify-content:center;}
+  .hero-btns{justify-content:center;}
+  .hero-desc{margin:0 auto 2.5rem;}
+  .nav-links { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">
+      <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e6/Logo_Universitas_Negeri_Makassar.png/220px-Logo_Universitas_Negeri_Makassar.png"
+           alt="Logo UNM"
+           onerror="this.style.display='none';this.parentElement.innerHTML='<span class=nav-logo-fallback>UNM</span>'">
+    </div>
+    <div>
+      <div class="nav-logo-text">E-Portofolio PPG</div>
+      <div class="nav-logo-sub">Universitas Negeri Makassar</div>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Beranda</a></li>
+    <li><a href="profil.html">Profil</a></li>
+
+    <li>
+      <button>E-Portofolio 1 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 1</div>
+        <a href="observasi.html">&#128269; Observasi</a>
+        <a href="modulajar.html">&#128203; Modul Ajar</a>
+        <a href="lkpd.html">&#128221; LKPD</a>
+        <a href="penilaian.html">&#11088; Penilaian</a>
+        <a href="modelguru.html">&#127885; Model Guru</a>
+      </div>
+    </li>
+
+    <li>
+      <button>E-Portofolio 2 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 2</div>
+        <a href="refleksi.html">&#128173; Refleksi</a>
+        <a href="filosofi.html">&#127775; Filosofi Mengajar</a>
+      </div>
+    </li>
+
+    <li><a href="dokumentasi.html">Dokumentasi</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="beranda">
+  <div class="hero-content">
+    <div class="hero-badge">PPG Calon Guru &middot; Gelombang 1 &middot; 2026</div>
+    <h1 class="hero-title">
+      Membentuk Generasi<br>
+      Sehat &amp; <span class="hl">Berprestasi</span>
+    </h1>
+    <p class="hero-desc">
+      Selamat datang di E-Portofolio PPG Calon Guru saya. Rekam jejak dedikasi di lapangan dan di kelas &mdash; memadukan ilmu pendidikan jasmani dengan inovasi pedagogi masa kini di SDI Bertingkat Mamajang 3.
+    </p>
+    <div class="hero-btns">
+      <a href="#artefak" class="btn-primary">Eksplorasi Artefak &rarr;</a>
+      <a href="profil.html" class="btn-outline">Lihat Profil</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">PJOK</div><div class="stat-label">Bidang Studi</div></div>
+      <div><div class="stat-num">G-1</div><div class="stat-label">Gelombang PPG</div></div>
+      <div><div class="stat-num">UNM</div><div class="stat-label">LPTK</div></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:rgba(255,255,255,0.28);text-align:center;padding:2rem;">
+        <div style="font-size:5rem;">&#127939;</div>
+        <div style="font-size:.8rem;line-height:1.6;">Foto Anda<br>ditampilkan di sini</div>
+      </div>
+      <div class="photo-overlay">
+        <div class="photo-name">Irpan Afriansya</div>
+        <div class="photo-role">Mahasiswa PPG Calon Guru &middot; PJOK 006</div>
+      </div>
+    </div>
+    <div class="float-card left">
+      <div class="fc-label">Sekolah PPL</div>
+      <div class="fc-val">SDI Mamajang 3</div>
+    </div>
+    <div class="float-card right">
+      <div class="fc-label">LPTK</div>
+      <div class="fc-val">Univ. Negeri Makassar</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFIL SINGKAT -->
+<section class="profil-wrap" id="profil">
+  <div class="section-tag">Tentang Saya</div>
+  <h2 class="section-title">Profil Mahasiswa PPG</h2>
+  <p class="section-desc">Data diri dan riwayat pendidikan sebagai calon guru PJOK profesional.</p>
+  <div class="profil-grid">
+    <div>
+      <h3 style="font-size:.94rem;font-weight:700;margin-bottom:1.1rem;color:var(--biru);">Data Diri</h3>
+      <div class="info-item"><span class="info-label">Nama Lengkap</span><span class="info-value">Irpan Afriansya</span></div>
+      <div class="info-item"><span class="info-label">Program</span><span class="info-value">PPG Calon Guru Gelombang 1 Tahun 2026</span></div>
+      <div class="info-item"><span class="info-label">Bidang Studi</span><span class="info-value">PJOK 006</span></div>
+      <div class="info-item"><span class="info-label">LPTK</span><span class="info-value">Universitas Negeri Makassar</span></div>
+      <div class="info-item"><span class="info-label">Sekolah PPL</span><span class="info-value">SDI Bertingkat Mamajang 3</span></div>
+    </div>
+    <div>
+      <h3 style="font-size:.94rem;font-weight:700;margin-bottom:1.1rem;color:var(--biru);">Riwayat Pendidikan</h3>
+      <div class="riwayat-item">
+        <div class="riwayat-icon">&#128332;</div>
+        <div><div class="r-nama">MA As'adiyah Ereng-Ereng</div><div class="r-tahun">2018 &ndash; 2021</div><div class="r-jurusan">Madrasah Aliyah</div></div>
+      </div>
+      <div class="riwayat-item">
+        <div class="riwayat-icon">&#127947;</div>
+        <div><div class="r-nama">Universitas Megrezky Makassar</div><div class="r-tahun">2021 &ndash; 2025</div><div class="r-jurusan">S1 Pendidikan Jasmani</div></div>
+      </div>
+      <div class="riwayat-item" style="border:1.5px solid var(--biru-muda);">
+        <div class="riwayat-icon" style="background:rgba(10,61,107,0.08);">&#127891;</div>
+        <div><div class="r-nama">PPG Calon Guru &ndash; UNM</div><div class="r-tahun" style="color:var(--emas);">2026 (Sedang Berjalan)</div><div class="r-jurusan">Program Profesi Guru &middot; Gelombang 1</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTEFAK PPL -->
+<section id="artefak">
+  <div class="section-tag">Rekam Jejak</div>
+  <h2 class="section-title">Artefak PPL Terbimbing</h2>
+  <p class="section-desc">Kumpulan artefak hasil praktik pengalaman lapangan dari perencanaan hingga evaluasi pembelajaran PJOK di SD.</p>
+  <div class="artefak-grid">
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">01</div><div class="porto-icon c-biru">&#128269;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">Hasil Observasi Peserta Didik</div>
+        <p class="porto-desc">Laporan hasil observasi terkait manajemen sekolah, budaya sekolah, dan lingkungan belajar di SDI Bertingkat Mamajang 3.</p>
+        <a href="observasi.html" class="porto-link">Buka Laporan &rarr;</a>
+      </div>
+    </div>
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">02</div><div class="porto-icon c-emas">&#128203;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">Modul Ajar &amp; RPP Inovatif</div>
+        <p class="porto-desc">Rancangan modul ajar PJOK yang mengintegrasikan pembelajaran berdiferensiasi dan pendekatan Kurikulum Merdeka.</p>
+        <a href="modulajar.html" class="porto-link">Buka Modul &rarr;</a>
+      </div>
+    </div>
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">03</div><div class="porto-icon c-cyan">&#128221;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">LKPD</div>
+        <p class="porto-desc">Lembar kerja peserta didik yang dirancang untuk mengukur capaian psikomotorik, kognitif, dan afektif secara komprehensif.</p>
+        <a href="lkpd.html" class="porto-link">Buka LKPD &rarr;</a>
+      </div>
+    </div>
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">04</div><div class="porto-icon c-merah">&#11088;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">Penilaian &amp; Evaluasi</div>
+        <p class="porto-desc">Instrumen penilaian autentik mencakup aspek kognitif, afektif, dan psikomotorik dalam pembelajaran PJOK.</p>
+        <a href="penilaian.html" class="porto-link">Lihat Penilaian &rarr;</a>
+      </div>
+    </div>
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">05</div><div class="porto-icon c-ungu">&#127885;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">Model Guru Inspiratif</div>
+        <p class="porto-desc">Observasi dan pembelajaran dari guru pamong sebagai model guru PJOK profesional di sekolah dasar.</p>
+        <a href="modelguru.html" class="porto-link">Lihat Profil &rarr;</a>
+      </div>
+    </div>
+    <div class="porto-card">
+      <div class="porto-card-top"><div class="porto-num">06</div><div class="porto-icon c-tosca">&#128173;</div></div>
+      <div class="porto-body">
+        <div class="porto-title">Refleksi &amp; Filosofi Mengajar</div>
+        <p class="porto-desc">Catatan refleksi mendalam atas setiap sesi PPL dan filosofi mengajar yang dikembangkan selama praktik lapangan.</p>
+        <a href="refleksi.html" class="porto-link">Baca Refleksi &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOKUMENTASI -->
+<section class="doc-wrap" id="dokumentasi">
+  <div class="section-tag">Galeri</div>
+  <h2 class="section-title">Dokumentasi PPL</h2>
+  <p class="section-desc">Tangkapan momen semangat dan keseruan selama kegiatan PPL Terbimbing di SDI Bertingkat Mamajang 3.</p>
+  <div class="doc-grid">
+    <div class="doc-item"><div class="doc-emoji">&#127939;&#8205;&#9794;</div><div class="doc-caption">Kegiatan Pembelajaran PJOK</div><div class="doc-sub">Aktivitas fisik di lapangan</div></div>
+    <div class="doc-item"><div class="doc-emoji">&#128104;&#8205;&#127979;</div><div class="doc-caption">Praktik Mengajar</div><div class="doc-sub">Penerapan RPP di kelas</div></div>
+    <div class="doc-item"><div class="doc-emoji">&#128202;</div><div class="doc-caption">Pengambilan Nilai</div><div class="doc-sub">Asesmen peserta didik</div></div>
+    <div class="doc-item"><div class="doc-emoji">&#129309;</div><div class="doc-caption">Bersama Guru Pamong</div><div class="doc-sub">Bimbingan &amp; supervisi</div></div>
+    <div class="doc-item"><div class="doc-emoji">&#127979;</div><div class="doc-caption">Lingkungan Sekolah</div><div class="doc-sub">SDI Bertingkat Mamajang 3</div></div>
+    <div class="doc-item"><div class="doc-emoji">&#127881;</div><div class="doc-caption">Foto Bersama Siswa</div><div class="doc-sub">Kenangan bersama peserta didik</div></div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;">
+    <a href="dokumentasi.html" class="btn-primary" style="background:var(--biru);color:white;">Lihat Galeri Lengkap &rarr;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid" style="grid-template-columns:2fr 1fr 1fr 1fr;">
+    <div>
+      <div class="footer-brand">E-Portofolio <span>PPG</span></div>
+      <p class="footer-desc">Rekam jejak PPL Mahasiswa PPG Calon Guru Gelombang 1 Tahun 2026. LPTK Universitas Negeri Makassar.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">E-Portofolio 1</div>
+      <ul class="footer-links">
+        <li><a href="observasi.html">Observasi</a></li>
+        <li><a href="modulajar.html">Modul Ajar</a></li>
+        <li><a href="lkpd.html">LKPD</a></li>
+        <li><a href="penilaian.html">Penilaian</a></li>
+        <li><a href="modelguru.html">Model Guru</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">E-Portofolio 2</div>
+      <ul class="footer-links">
+        <li><a href="refleksi.html">Refleksi</a></li>
+        <li><a href="filosofi.html">Filosofi Mengajar</a></li>
+        <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Kontak</div>
+      <ul class="footer-links">
+        <li>
+          <a href="https://wa.me/6208164381461" target="_blank" style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:1rem;">📱</span>
+            <span>WA: 08164381461</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://instagram.com/irfann.af" target="_blank" style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:1rem;">📸</span>
+            <span>Instagram: irfann.af</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://facebook.com/Irfan.Afriansyah" target="_blank" style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:1rem;">👤</span>
+            <span>Facebook: Irfan Afriansyah</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Irpan Afriansya &middot; E-Portofolio PPG Calon Guru</span>
+    <span>PJOK 006 &middot; UNM &middot; Gelombang 1</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const el=document.querySelector(a.getAttribute('href'));
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>

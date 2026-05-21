@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil | Irpan Afriansya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --biru:#0a3d6b; --biru-muda:#1565a8; --biru-terang:#1e88e5;
+  --emas:#c9a030; --emas-muda:#f5d060;
+  --putih:#f5f8ff; --abu:#eaf0f8;
+  --teks:#0d1b2a; --teks-abu:#4a6080; --border:rgba(10,61,107,0.10);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--putih); color:var(--teks); }
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:rgba(5,20,45,0.97); backdrop-filter:blur(16px);
+  height:68px; display:flex; align-items:center; padding:0 3%;
+  box-shadow:0 2px 20px rgba(10,61,107,0.3);
+}
+.nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; margin-right:auto; }
+.nav-logo { width:44px; height:44px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; border:2px solid var(--emas); }
+.nav-logo img { width:38px; height:38px; object-fit:contain; }
+.nav-logo-fallback { font-size:.85rem; font-weight:900; color:var(--biru); font-family:serif; }
+.nav-logo-text { font-size:1rem; font-weight:700; color:var(--emas-muda); font-family:'Playfair Display',serif; line-height:1.1; }
+.nav-logo-sub { font-size:.62rem; color:rgba(255,255,255,0.5); letter-spacing:.04em; }
+.nav-links { display:flex; align-items:center; gap:2px; list-style:none; }
+.nav-links > li { position:relative; }
+.nav-links > li > a, .nav-links > li > button {
+  display:flex; align-items:center; gap:5px; text-decoration:none;
+  color:rgba(255,255,255,0.78); font-size:.82rem; font-weight:500;
+  font-family:'DM Sans',sans-serif; padding:9px 14px; border-radius:7px;
+  cursor:pointer; background:none; border:none; white-space:nowrap; transition:all .18s;
+}
+.nav-links > li > a:hover, .nav-links > li > button:hover { color:white; background:rgba(255,255,255,0.1); }
+.nav-links > li > a.active { color:var(--emas-muda); }
+.nav-caret { font-size:.58rem; transition:transform .2s; display:inline-block; }
+.nav-links > li:hover > button .nav-caret { transform:rotate(180deg); }
+.dropdown {
+  display:none; position:absolute; top:calc(100% + 10px); right:0;
+  background:white; border:1px solid var(--border); border-radius:12px;
+  min-width:210px; box-shadow:0 16px 48px rgba(10,61,107,0.18);
+  overflow:hidden; z-index:300;
+}
+.nav-links > li:hover .dropdown { display:block; }
+.dropdown-header { padding:9px 14px 7px; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--biru-muda); border-bottom:1px solid var(--border); background:var(--abu); }
+.dropdown a { display:flex; align-items:center; gap:8px; padding:10px 14px; text-decoration:none; color:var(--teks); font-size:.83rem; transition:background .15s; }
+.dropdown a:hover { background:var(--abu); color:var(--biru); }
+.page-header { background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%); color:white; padding:110px 6% 5rem; text-align:center; }
+.page-header-tag { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.55; margin-bottom:.7rem; color:var(--emas-muda); }
+.page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,4vw,3rem); font-weight:900; margin-bottom:.7rem; }
+.page-header p { opacity:.75; font-size:.95rem; max-width:520px; margin:0 auto; line-height:1.7; }
+main { max-width:920px; margin:0 auto; padding:4rem 5%; }
+.section-tag { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--emas); margin-bottom:.6rem; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,2.5vw,2rem); font-weight:700; margin-bottom:1rem; color:var(--teks); }
+.card { background:white; border:1px solid var(--border); border-radius:16px; overflow:hidden; margin-bottom:1.5rem; }
+.card-head { background:var(--abu); padding:1.5rem 2rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:1rem; }
+.card-body { padding:1.75rem 2rem; }
+.data-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.data-item { padding:1rem; background:var(--abu); border-radius:10px; }
+.data-label { font-size:.77rem; color:var(--teks-abu); font-weight:500; margin-bottom:3px; }
+.data-value { font-size:.92rem; font-weight:700; color:var(--teks); }
+.btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--biru); color:white; text-decoration:none; padding:12px 24px; border-radius:8px; font-weight:700; font-size:.87rem; border:none; cursor:pointer; transition:all .2s; }
+.btn-primary:hover { background:var(--biru-muda); transform:translateY(-1px); }
+footer { background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%); color:white; padding:2.5rem 6%; text-align:center; font-size:.82rem; opacity:.9; margin-top:4rem; }
+@media(max-width:768px){ .data-grid{grid-template-columns:1fr;} .nav-links{display:none;} }
+
+.avatar { width:100px; height:100px; border-radius:50%; background:var(--biru); display:flex; align-items:center; justify-content:center; font-size:2.5rem; flex-shrink:0; border:4px solid white; box-shadow:0 4px 20px rgba(0,0,0,.1); }
+.profil-name { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:700; }
+.profil-role { color:var(--biru-muda); font-weight:600; font-size:.9rem; margin-top:4px; }
+.badge { display:inline-flex; align-items:center; gap:5px; padding:5px 12px; border-radius:100px; font-size:.77rem; font-weight:600; }
+.badge-biru { background:rgba(10,61,107,.1); color:var(--biru); }
+.badge-emas { background:rgba(201,160,48,.14); color:#7a5c00; }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.profil-top { background:var(--abu); padding:2.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:2rem; }
+.timeline { display:flex; flex-direction:column; gap:0; }
+.tl-item { display:flex; gap:1.5rem; padding:1.5rem 0; border-bottom:1px solid var(--border); }
+.tl-item:last-child { border-bottom:none; }
+.tl-dot { width:44px; height:44px; border-radius:12px; background:var(--abu); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.tl-dot.active { background:var(--biru); border-color:var(--biru); }
+.tl-year { font-size:.79rem; color:var(--biru-muda); font-weight:700; margin-bottom:2px; }
+.tl-title { font-size:.98rem; font-weight:700; color:var(--teks); margin-bottom:2px; }
+.tl-sub { font-size:.84rem; color:var(--teks-abu); line-height:1.6; }
+.visi-card { background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%); color:white; border-radius:16px; padding:2.5rem; margin:2rem 0; }
+.visi-label { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.55; margin-bottom:.7rem; color:var(--emas-muda); }
+.visi-text { font-family:'Playfair Display',serif; font-size:1.2rem; line-height:1.75; font-style:italic; }
+.komp-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.komp-item { padding:1.2rem; background:var(--abu); border-radius:12px; border:1px solid var(--border); }
+.komp-icon { font-size:1.5rem; margin-bottom:7px; }
+.komp-title { font-weight:700; font-size:.9rem; color:var(--teks); margin-bottom:4px; }
+.komp-desc { font-size:.8rem; color:var(--teks-abu); line-height:1.6; }
+@media(max-width:768px){ .profil-top{flex-direction:column;text-align:center;} .komp-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">
+      <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e6/Logo_Universitas_Negeri_Makassar.png/220px-Logo_Universitas_Negeri_Makassar.png"
+           alt="Logo UNM"
+           onerror="this.style.display='none';this.parentElement.innerHTML='<span class=nav-logo-fallback>UNM</span>'">
+    </div>
+    <div>
+      <div class="nav-logo-text">E-Portofolio PPG</div>
+      <div class="nav-logo-sub">Universitas Negeri Makassar</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="profil.html">Profil</a></li>
+    <li>
+      <button>E-Portofolio 1 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 1</div>
+        <a href="observasi.html">&#128269; Observasi</a>
+        <a href="modulajar.html">&#128203; Modul Ajar</a>
+        <a href="lkpd.html">&#128221; LKPD</a>
+        <a href="penilaian.html">&#11088; Penilaian</a>
+        <a href="modelguru.html">&#127885; Model Guru</a>
+      </div>
+    </li>
+    <li>
+      <button>E-Portofolio 2 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 2</div>
+        <a href="refleksi.html">&#128173; Refleksi</a>
+        <a href="filosofi.html">&#127775; Filosofi Mengajar</a>
+      </div>
+    </li>
+    <li><a href="dokumentasi.html">Dokumentasi</a></li>
+  </ul>
+</nav>
+<div class="page-header">
+  <div class="page-header-tag">Tentang Saya</div>
+  <h1>Profil Lengkap</h1>
+  <p>Mahasiswa PPG Calon Guru Gelombang 1 Tahun 2026 &middot; Bidang Studi PJOK 006</p>
+</div>
+<main>
+  <div class="card">
+    <div class="profil-top">
+      <div class="avatar">&#127939;</div>
+      <div>
+        <div class="profil-name">Irpan Afriansya</div>
+        <div class="profil-role">Mahasiswa PPG Calon Guru &middot; PJOK 006</div>
+        <div style="font-size:.82rem;color:var(--teks-abu);margin-top:2px;">Universitas Negeri Makassar &middot; Gelombang 1 &middot; 2026</div>
+        <div class="badges">
+          <span class="badge badge-biru">&#127891; PPG 2026</span>
+          <span class="badge badge-emas">&#127979; SDI Mamajang 3</span>
+          <span class="badge badge-biru">&#128218; PJOK 006</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="section-tag">Data Identitas</div>
+      <div class="data-grid">
+        <div class="data-item"><div class="data-label">Nama Lengkap</div><div class="data-value">Irpan Afriansya</div></div>
+        <div class="data-item"><div class="data-label">Program Studi</div><div class="data-value">Pendidikan Jasmani, Olahraga &amp; Kesehatan</div></div>
+        <div class="data-item"><div class="data-label">LPTK</div><div class="data-value">Universitas Negeri Makassar</div></div>
+        <div class="data-item"><div class="data-label">Sekolah Mitra PPL</div><div class="data-value">SDI Bertingkat Mamajang 3</div></div>
+        <div class="data-item"><div class="data-label">Gelombang</div><div class="data-value">Gelombang 1 Tahun 2026</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="section-tag">Riwayat Pendidikan</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">&#128332;</div><div><div class="tl-year">2018 &ndash; 2021</div><div class="tl-title">MA As'adiyah Ereng-Ereng</div><div class="tl-sub">Madrasah Aliyah &middot; Fondasi karakter Islami yang kuat.</div></div></div>
+        <div class="tl-item"><div class="tl-dot">&#127947;</div><div><div class="tl-year">2021 &ndash; 2025</div><div class="tl-title">Universitas Megrezky Makassar</div><div class="tl-sub">S1 Pendidikan Jasmani &middot; Ilmu keolahragaan dan pedagogi fisik.</div></div></div>
+        <div class="tl-item"><div class="tl-dot active">&#127891;</div><div><div class="tl-year" style="color:var(--emas);">2026 &middot; Sedang Berjalan</div><div class="tl-title">PPG Calon Guru &ndash; Univ. Negeri Makassar</div><div class="tl-sub">Program Profesi Guru Gelombang 1 &middot; PJOK 006 &middot; PPL di SDI Bertingkat Mamajang 3.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="visi-card">
+    <div class="visi-label">Visi Mengajar</div>
+    <p class="visi-text">"Menjadi pendidik PJOK yang mampu menginspirasi peserta didik untuk mencintai aktivitas fisik, membangun karakter sportif, dan membentuk generasi yang sehat jasmani maupun rohani."</p>
+    <div style="margin-top:1.2rem;font-size:.85rem;opacity:.7;">&mdash; Irpan Afriansya, Mahasiswa PPG Calon Guru 2026</div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="section-tag">Kompetensi yang Dikembangkan</div>
+      <div class="komp-grid" style="margin-top:1.25rem;">
+        <div class="komp-item"><div class="komp-icon">&#127919;</div><div class="komp-title">Pembelajaran Berdiferensiasi</div><div class="komp-desc">Menyesuaikan strategi mengajar berdasarkan kebutuhan, gaya belajar, dan kemampuan masing-masing peserta didik.</div></div>
+        <div class="komp-item"><div class="komp-icon">&#128208;</div><div class="komp-title">Perencanaan Pembelajaran</div><div class="komp-desc">Menyusun modul ajar dan RPP PJOK inovatif, kontekstual, dan berorientasi profil pelajar Pancasila.</div></div>
+        <div class="komp-item"><div class="komp-icon">&#127942;</div><div class="komp-title">Penilaian Autentik</div><div class="komp-desc">Merancang instrumen penilaian yang mengukur kompetensi psikomotorik, kognitif, dan afektif secara menyeluruh.</div></div>
+        <div class="komp-item"><div class="komp-icon">&#128260;</div><div class="komp-title">Refleksi Profesional</div><div class="komp-desc">Melakukan refleksi kritis atas setiap pengalaman mengajar sebagai landasan pengembangan diri berkelanjutan.</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,0.12);">
+    <a href="https://wa.me/6208164381461" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">&#128242; WA: 08164381461</a>
+    <a href="https://instagram.com/irfann.af" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">&#128247; Instagram: irfann.af</a>
+    <a href="https://facebook.com/Irfan.Afriansyah" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">&#128100; Facebook: Irfan Afriansyah</a>
+  </div>
+  &copy; 2026 Irpan Afriansya &middot; E-Portofolio PPG Calon Guru &middot; PJOK 006 &middot; Universitas Negeri Makassar
+</footer>
+</body>
+</html>
