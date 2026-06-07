@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model Guru | Irpan Afriansya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --biru:#0a3d6b;
+  --biru-muda:#1565a8;
+  --emas:#c9a030;
+  --emas-muda:#f5d060;
+  --putih:#f5f8ff;
+  --abu:#eaf0f8;
+  --teks:#0d1b2a;
+  --teks-abu:#4a6080;
+  --border:rgba(10,61,107,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--putih);color:var(--teks);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,20,45,.97);backdrop-filter:blur(16px);height:68px;display:flex;align-items:center;padding:0 3%;box-shadow:0 2px 20px rgba(10,61,107,.3);}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;margin-right:auto;}
+.nav-logo{width:44px;height:44px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;border:2px solid var(--emas);}
+.nav-logo img{width:38px;height:38px;object-fit:contain;}
+.nav-logo-fallback{font-size:.85rem;font-weight:900;color:var(--biru);font-family:serif;}
+.nav-logo-text{font-size:1rem;font-weight:700;color:var(--emas-muda);font-family:'Playfair Display',serif;line-height:1.1;}
+.nav-logo-sub{font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.04em;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links>li{position:relative;}
+.nav-links>li>a,.nav-links>li>button{display:flex;align-items:center;gap:5px;text-decoration:none;color:rgba(255,255,255,.78);font-size:.82rem;font-weight:500;font-family:'DM Sans',sans-serif;padding:9px 14px;border-radius:7px;cursor:pointer;background:none;border:none;white-space:nowrap;transition:all .18s;}
+.nav-links>li>a:hover,.nav-links>li>button:hover{color:white;background:rgba(255,255,255,.1);}
+.nav-links>li>a.active{color:var(--emas-muda);}
+.nav-caret{font-size:.58rem;transition:transform .2s;display:inline-block;}
+.nav-links>li:hover>button .nav-caret{transform:rotate(180deg);}
+.dropdown{display:none;position:absolute;top:calc(100% + 10px);right:0;background:white;border:1px solid var(--border);border-radius:12px;min-width:210px;box-shadow:0 16px 48px rgba(10,61,107,.18);overflow:hidden;z-index:300;}
+.nav-links>li:hover .dropdown{display:block;}
+.dropdown-header{padding:9px 14px 7px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--biru-muda);border-bottom:1px solid var(--border);background:var(--abu);}
+.dropdown a{display:flex;align-items:center;gap:8px;padding:10px 14px;text-decoration:none;color:var(--teks);font-size:.83rem;transition:background .15s;}
+.dropdown a:hover{background:var(--abu);color:var(--biru);}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* PAGE HEADER */
+.page-header{background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%);color:white;padding:110px 6% 5rem;text-align:center;position:relative;overflow:hidden;}
+.page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(201,160,48,.12) 0%,transparent 65%);pointer-events:none;}
+.page-header-tag{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.55;margin-bottom:.7rem;color:var(--emas-muda);}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;margin-bottom:.7rem;}
+.page-header p{opacity:.72;font-size:.95rem;max-width:560px;margin:0 auto;line-height:1.7;}
+
+/* MAIN */
+main{max-width:960px;margin:0 auto;padding:4rem 5%;}
+.section-tag{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--emas);margin-bottom:.6rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;margin-bottom:1rem;color:var(--teks);}
+
+/* VISION HERO */
+.vision-hero{background:linear-gradient(135deg,#0a3d6b 0%,#061d3a 100%);border-radius:20px;padding:3rem;color:white;margin-bottom:2rem;position:relative;overflow:hidden;}
+.vision-hero::after{content:'';position:absolute;bottom:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,160,48,.08);pointer-events:none;}
+.vision-hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--emas-muda);opacity:.8;margin-bottom:.6rem;}
+.vision-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:900;margin-bottom:1rem;line-height:1.3;}
+.vision-hero p{font-size:.93rem;line-height:1.8;opacity:.82;max-width:680px;}
+
+/* CARDS */
+.card{background:white;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.5rem;transition:box-shadow .2s;}
+.card:hover{box-shadow:0 8px 32px rgba(10,61,107,.1);}
+.card-head{background:var(--abu);padding:1.4rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;}
+.card-body{padding:1.7rem 2rem;}
+.num-circle{width:40px;height:40px;border-radius:50%;background:var(--biru);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;}
+.card-title{font-weight:700;font-size:1rem;color:var(--teks);}
+.card-sub{font-size:.8rem;color:var(--teks-abu);}
+.field-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--emas);margin-bottom:.45rem;}
+.field-text{font-size:.89rem;color:var(--teks-abu);line-height:1.8;background:var(--abu);border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:1.2rem;}
+.field-text:last-child{margin-bottom:0;}
+
+/* MISI LIST */
+.misi-list{list-style:none;display:flex;flex-direction:column;gap:.8rem;}
+.misi-list li{display:flex;gap:.9rem;align-items:flex-start;font-size:.89rem;color:var(--teks-abu);line-height:1.75;background:var(--abu);border-radius:10px;padding:1rem 1.3rem;}
+.misi-list li::before{content:'▸';color:var(--emas);font-size:.85rem;flex-shrink:0;margin-top:.1rem;}
+
+/* PILAR GRID */
+.pilar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem;margin-top:1.5rem;}
+.pilar-card{background:white;border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:all .2s;}
+.pilar-card:hover{border-color:var(--emas);box-shadow:0 6px 24px rgba(10,61,107,.1);transform:translateY(-2px);}
+.pilar-icon{font-size:1.6rem;margin-bottom:.8rem;}
+.pilar-name{font-family:'Playfair Display',serif;font-weight:700;font-size:.97rem;color:var(--teks);margin-bottom:.55rem;}
+.pilar-desc{font-size:.84rem;color:var(--teks-abu);line-height:1.75;}
+
+/* FLIP CARDS */
+.karakter-intro{font-size:.87rem;color:var(--teks-abu);margin-bottom:1.5rem;line-height:1.7;}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.3rem;}
+.flip-card{height:200px;perspective:900px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+.flip-card:hover .flip-inner,.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.4rem;text-align:center;}
+.flip-front{background:linear-gradient(135deg,var(--biru) 0%,var(--biru-muda) 100%);color:white;}
+.flip-back{background:linear-gradient(135deg,#c9a030 0%,#e8c055 100%);color:#0d1b2a;transform:rotateY(180deg);}
+.flip-front-icon{font-size:2rem;margin-bottom:.7rem;}
+.flip-front-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;line-height:1.3;}
+.flip-back-text{font-size:.83rem;line-height:1.7;font-weight:500;}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#020c1e 0%,#0a3d6b 100%);color:white;padding:2.5rem 6%;text-align:center;font-size:.82rem;margin-top:4rem;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">
+      <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e6/Logo_Universitas_Negeri_Makassar.png/220px-Logo_Universitas_Negeri_Makassar.png"
+           alt="Logo UNM" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=nav-logo-fallback>UNM</span>'">
+    </div>
+    <div><div class="nav-logo-text">E-Portofolio PPG</div><div class="nav-logo-sub">Universitas Negeri Makassar</div></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="profil.html">Profil</a></li>
+    <li>
+      <button>E-Portofolio 1 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 1</div>
+        <a href="observasi.html">&#128269; Observasi</a>
+        <a href="modulajar.html">&#128203; Modul Ajar</a>
+        <a href="lkpd.html">&#128221; LKPD</a>
+        <a href="penilaian.html">&#11088; Penilaian</a>
+        <a href="modelguru.html">&#127885; Model Guru</a>
+      </div>
+    </li>
+    <li>
+      <button>E-Portofolio 2 <span class="nav-caret">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dropdown-header">E-Portofolio 2</div>
+        <a href="refleksi.html">&#128173; Refleksi</a>
+        <a href="filosofi.html">&#127775; Filosofi Mengajar</a>
+      </div>
+    </li>
+    <li><a href="dokumentasi.html">Dokumentasi</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-tag">Artefak PPL · 05</div>
+  <h1>Revolusi Peran Pendidik PJOK</h1>
+  <p>Rancangan visi, misi, pilar kompetensi, dan karakter ideal sebagai fondasi profesionalisme guru PJOK masa kini</p>
+</div>
+
+<main>
+
+  <!-- VISION HERO -->
+  <div class="section-tag">Rancangan Visi &amp; Misi</div>
+  <div class="vision-hero">
+    <div class="vision-hero-tag">&#127919; Visi Besar</div>
+    <h2>Mewujudkan Ekosistem Pembelajaran Penjas yang Holistik, Inklusif &amp; Berwawasan Lingkungan</h2>
+    <p>Untuk melahirkan peserta didik yang tangguh, sehat paripurna, dan memiliki kesadaran sosial yang tinggi — melampaui sekadar prestasi fisik semata.</p>
+  </div>
+
+  <!-- VISI UTAMA -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num-circle">01</div>
+      <div>
+        <div class="card-title">Visi Utama</div>
+        <div class="card-sub">Katalisator Kesejahteraan Jasmani &amp; Resiliensi Diri</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p style="font-size:.9rem;color:var(--teks-abu);line-height:1.85;">
+        Lebih dari sekadar instruktur kebugaran, melainkan agen penggerak yang menumbuhkan <strong>motivasi intrinsik</strong> peserta didik untuk aktif bergerak, mencintai alam, serta menanamkan ketangguhan mental dalam menghadapi berbagai tantangan hidup.
+      </p>
+    </div>
+  </div>
+
+  <!-- MISI STRATEGIS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num-circle">02</div>
+      <div>
+        <div class="card-title">Misi Strategis</div>
+        <div class="card-sub">Langkah nyata mewujudkan visi di ruang kelas dan lapangan</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="misi-list">
+        <li>Mengembangkan model pembelajaran berbasis proyek <strong>(Project-Based Learning)</strong> yang mengintegrasikan aktivitas luar kelas <em>(outdoor education)</em> dan kepramukaan.</li>
+        <li>Menerapkan pendekatan <strong>gamifikasi</strong> dan <strong>Socio-Emotional Learning (SEL)</strong> untuk membangun kolaborasi dan kepemimpinan dalam tim.</li>
+        <li>Memanfaatkan <strong>wearable technology</strong> atau aplikasi kebugaran sederhana untuk memantau kemajuan kesehatan siswa secara personal dan terukur.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PILAR KOMPETENSI -->
+  <div style="margin-top:3rem;margin-bottom:.5rem;">
+    <div class="section-tag">Pilar Kompetensi</div>
+    <h2 class="section-title">Fondasi Esensial Guru PJOK Masa Kini</h2>
+    <p style="font-size:.9rem;color:var(--teks-abu);line-height:1.8;margin-bottom:.5rem;">Fondasi esensial untuk memandu generasi emas beradaptasi dengan dinamika zaman dan menjaga kualitas hidup mereka.</p>
+  </div>
+
+  <div class="pilar-grid">
+    <div class="pilar-card">
+      <div class="pilar-icon">🌿</div>
+      <div class="pilar-name">Literasi Ekologi &amp; Kesehatan</div>
+      <div class="pilar-desc">Mampu merancang aktivitas fisik yang memanfaatkan ruang terbuka dan alam sekitar sebagai medium pembelajaran gerak, sekaligus menanamkan kepedulian terhadap kelestarian lingkungan.</div>
+    </div>
+    <div class="pilar-card">
+      <div class="pilar-icon">♾️</div>
+      <div class="pilar-name">Desain Pembelajaran Inklusif</div>
+      <div class="pilar-desc">Memastikan ruang gerak yang setara bagi seluruh siswa tanpa memandang perbedaan latar belakang atau kemampuan fisik awal, dengan prinsip <em>no one left behind</em> dalam setiap sesi praktik.</div>
+    </div>
+    <div class="pilar-card">
+      <div class="pilar-icon">📡</div>
+      <div class="pilar-name">Integrasi TPACK</div>
+      <div class="pilar-desc">Menyelaraskan pemahaman taktis olahraga dengan teknologi modern seperti pelacak kebugaran dan portofolio digital untuk menciptakan pengalaman belajar yang relevan dengan era digital.</div>
+    </div>
+  </div>
+
+  <!-- KARAKTER GURU IDEAL -->
+  <div style="margin-top:3rem;margin-bottom:1rem;">
+    <div class="section-tag">Karakter Guru Ideal</div>
+    <h2 class="section-title">Nilai-Nilai yang Saya Pedomani</h2>
+    <p class="karakter-intro">Arahkan kursor ke kartu untuk memutar dan melihat nilai-nilai karakter yang menjadi pedoman saya sebagai pendidik PJOK profesional.</p>
+  </div>
+
+  <div class="flip-grid">
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-icon">🤝</div>
+          <div class="flip-front-title">Penggerak Kolaborasi</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-text">Aktif membangun kemitraan yang sinergis dengan sesama pendidik, orang tua, dan komunitas untuk menciptakan budaya hidup aktif dan sehat di seluruh elemen sekolah.</div>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-icon">🔥</div>
+          <div class="flip-front-title">Teladan Resiliensi</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-text">Menjadi role model yang menunjukkan daya juang tinggi, disiplin yang konsisten, dan sikap pantang menyerah baik di lapangan maupun dalam pengembangan keprofesian berkelanjutan.</div>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-icon">🌱</div>
+          <div class="flip-front-title">Pemimpin Perubahan</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-text">Berani berinovasi, terbuka terhadap umpan balik, dan selalu mendorong transformasi positif dalam ekosistem pembelajaran demi generasi yang lebih sehat dan berkarakter.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,0.12);">
+    <a href="https://wa.me/6208164381461" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">📱 WA: 08164381461</a>
+    <a href="https://instagram.com/irfann.af" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">📸 Instagram: irfann.af</a>
+    <a href="https://facebook.com/Irfan.Afriansyah" target="_blank" style="color:white;text-decoration:none;display:flex;align-items:center;gap:7px;font-size:.85rem;opacity:.8;">👤 Facebook: Irfan Afriansyah</a>
+  </div>
+  &copy; 2026 Irpan Afriansya &middot; E-Portofolio PPG Calon Guru &middot; PJOK 006 &middot; Universitas Negeri Makassar
+</footer>
+
+<script>
+  // Touch/click support for flip cards on mobile
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+</script>
+</body>
+</html>
